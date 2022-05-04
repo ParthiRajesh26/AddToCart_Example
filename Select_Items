@@ -1,0 +1,42 @@
+public class AddToCart_Example {
+
+	public static void main(String[] args) throws InterruptedException {
+
+		WebDriver driver = new ChromeDriver();
+
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+
+		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
+
+		int j = 0;
+
+		String[] veggies = { "Cucumber", "Brocolli" };
+
+		Thread.sleep(3000);
+
+		List<WebElement> products = driver.findElements(By.cssSelector("h4.product-name"));
+
+		for (int i = 0; i < products.size(); i++) {
+
+			String[] productName = products.get(i).getText().split("-");
+
+			String trimedVeggies = productName[0].trim();
+
+			List<String> arrayList = Arrays.asList(veggies);
+
+			if (arrayList.contains(trimedVeggies)) {
+
+				j++;
+
+				driver.findElements(By.xpath("//div[@class='product-action']/button")).get(i).click();
+
+				if (j == 3) {
+					break;
+				}
+			}
+
+		}
+
+	}
+
+}
